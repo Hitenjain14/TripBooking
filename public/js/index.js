@@ -19,18 +19,15 @@ if (mapBox) {
 // DELEGATION
 
 if (loginForm) {
-  console.log('in login');
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    console.log(email, password);
     login(email, password);
   });
 }
 
 if (logOutBtn) {
-  console.log('log out request');
   logOutBtn.addEventListener('click', logout);
 }
 
@@ -41,7 +38,6 @@ if (userDataForm)
     form.append('name', document.getElementById('name').value);
     form.append('email', document.getElementById('email').value);
     form.append('photo', document.getElementById('photo').files[0]);
-    console.log(form);
 
     updateSettings(form);
   });
