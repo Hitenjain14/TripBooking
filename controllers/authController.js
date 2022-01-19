@@ -17,10 +17,10 @@ const signToken = (id) => {
   });
 };
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req, res) => {
   const token = signToken(user._id);
 
-  if (process.env.NODE_ENV === 'production') {
+  if (req.secure || req.headers['x-forwarded-proto'] === 'https') {
     cookieOptions.secure = true;
   }
 
@@ -39,7 +39,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   const newUser = await User.create(req.body);
   const url = `${req.protocol}://${req.get('host')}/me`;
   await new Email(newUser, url).sendWelcome();
-  createSendToken(newUser, 201, res);
+  createSendToken(newUser, 201, req, res);
 });
 
 exports.login = catchAsync(async (req, res, next) => {
@@ -54,7 +54,7 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError('Incorrect email or password', 401));
   }
   //3) If everything is okay send back the response
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
   // const token = signToken(user._id);
   // res.status(200).json({
   //   status: 'success',
@@ -219,7 +219,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
   // 3) Update changedPasswordAt property for the user
   // 4) Log the user in, send JWT
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
   // const token = signToken(user._id);
   // res.status(200).json({
   //   status: 'success',
@@ -242,7 +242,7 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
   await user.save();
 
   //4) log user in and send JWT
-  createSendToken(user, 200, res);
+  createSendToken(user, 200, req, res);
   // const token = signToken(user._id);
   // res.status(200).json({
   //   status: 'success',
