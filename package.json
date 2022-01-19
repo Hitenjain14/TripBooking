@@ -2,8 +2,7 @@
   "devDependencies": {
     "@prettier/plugin-pug": "^1.19.1",
     "parcel": "^2.2.1",
-    "prettier": "^2.5.0",
-    "slugify": "^1.6.4"
+    "prettier": "^2.5.0"
   },
   "name": "natours",
   "version": "1.0.0",
@@ -53,7 +52,7 @@
     "nodemailer": "^6.7.2",
     "pug": "^3.0.2",
     "sharp": "^0.29.3",
-    "slugify": "^1.6.4",
+    "slugify": "^1.6.5",
     "stripe": "^8.197.0",
     "validator": "^13.7.0",
     "xss-clean": "^0.1.1"
