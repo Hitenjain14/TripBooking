@@ -10,11 +10,9 @@ process.on('uncaughtException', (err) => {
 });
 
 const app = require('./app');
-
-const DB = process.env.DATABASE.replace(
-  '<PASSWORD>',
-  process.env.DATABASE_PASSWORD
-);
+var database =
+  'mongodb+srv://Hiten14:<PASSWORD>@cluster0.uepjh.mongodb.net/natours?retryWrites=true&w=majority';
+const DB = database.replace('<PASSWORD>', process.env.DATABASE_PASSWORD);
 mongoose
   .connect(DB, {
     useNewUrlParser: true,
